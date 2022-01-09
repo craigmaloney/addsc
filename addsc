@@ -1,0 +1,23 @@
+#!/bin/bash
+
+action=$1
+shift
+
+[ "$action" = "usage" ] && {
+    echo "  Add and schedule for today:"
+    echo "    addsc [ITEM]"
+    echo "     adds and schedules a task for today"
+    exit
+}
+
+old_todotxt_verbose=$TODOTXT_VERBOSE
+TODOTXT_VERBOSE=1
+
+todo_result=$("$TODO_SH" add "$@")
+todo_item=$(echo "$todo_result" | cut -d ' ' -f 1 | head -1) 
+"$TODO_SH" schedule "$todo_item" today
+TODOTXT_VERBOSE=$old_todotxt_verbose
+
+if [ "$TODOTXT_VERBOSE" -gt 0 ]; then
+    echo "$todo_result" | tail -1
+fi
