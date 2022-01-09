@@ -7,6 +7,7 @@ shift
     echo "  Add and schedule for today:"
     echo "    addsc [ITEM]"
     echo "     adds and schedules a task for today"
+    echo
     exit
 }
 
